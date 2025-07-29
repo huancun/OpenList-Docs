@@ -344,11 +344,9 @@ docker compose down
 docker compose up -d
 ```
 
-## Docker Advanced Configuration { lang="en" }
+## Advanced Docker Compose { lang="en" }
 
-## Docker 进阶配置 { lang="zh-CN" }
-
-### Docker Compose
+## 增强版 Docker Compose { lang="zh-CN" }
 
 ::: en
 Create `docker-compose.yml` file.

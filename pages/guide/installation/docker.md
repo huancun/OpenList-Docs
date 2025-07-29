@@ -61,18 +61,172 @@ Write the content below. Then save and exit.
 ```yaml
 # docker-compose.yml
 services:
+  # OpenList | OpenList Core Service
   openlist:
     image: 'openlistteam/openlist:latest'
-    container_name: openlist
+    container_name: openlistz
     volumes:
-      - './data:/opt/openlist/data'
+      - '${OPLISTDX_DATA}/openlist:/opt/openlist/data'
+      - '${OPLISTDX_TEMP}/aria2:/opt/openlist/data/temp/aria2'
+      - '${OPLISTDX_TEMP}/qBittorrent:/opt/openlist/data/temp/qBittorrent'
+      - '${OPLISTDX_TEMP}/Transmission:/opt/openlist/data/temp/Transmission'
     ports:
-      - '5244:5244'
+      - '5245:5244'
     environment:
-      - PUID=0
-      - PGID=0
+      - PUID=${OPLISTDX_PUID}
+      - PGID=${OPLISTDX_PGID}
+      - TZ=${OPLISTDX_TZ}
       - UMASK=022
     restart: unless-stopped
+
+  # # Aria2 下载器及webui | Aria2 Downloader & WebUI
+  # aria2-pro:
+  #   image: p3terx/aria2-pro
+  #   container_name: aria2-pro
+  #   restart: unless-stopped
+  #   ports:
+  #     - '6800:6800'
+  #     - '6888:6888'
+  #     - '6888:6888/udp'
+  #   volumes:
+  #     - '${OPLISTDX_DATA}/aria2-pro:/config'
+  #     - '${OPLISTDX_DOWNLOADS}/aria2:/downloads'
+  #     - '${OPLISTDX_TEMP}/aria2:/opt/openlist/data/temp/aria2'
+  #   environment:
+  #     - 'PUID=${OPLISTDX_PUID}'
+  #     - 'PGID=${OPLISTDX_PGID}'
+  #     - 'TZ=${OPLISTDX_TZ}'
+  #     - 'UMASK_SET=022'
+  #     - 'RPC_SECRET=${OPLISTDX_ARIA2TOKEN}'
+  #     - 'RPC_PORT=6800'
+  #     - 'LISTEN_PORT=6888'
+  # ariang:
+  #   container_name: ariang
+  #   image: p3terx/ariang
+  #   command: --port 6880
+  #   ports:
+  #     - 6880:6880
+  #   restart: unless-stopped
+  #   environment:
+  #     - 'PUID=${OPLISTDX_PUID}'
+  #     - 'PGID=${OPLISTDX_PGID}'
+  #     - 'TZ=${OPLISTDX_TZ}'
+  #   logging:
+  #     driver: json-file
+  #     options:
+  #       max-size: 1m
+  #   depends_on:
+  #     - aria2-pro
+
+  # # qBittorrent 下载器 | qBittorrent Downloader
+  # qbittorrent:
+  #   image: lscr.io/linuxserver/qbittorrent:latest
+  #   container_name: qbittorrent
+  #   environment:
+  #     - PUID=${OPLISTDX_PUID}
+  #     - PGID=${OPLISTDX_PGID}
+  #     - TZ=${OPLISTDX_TZ}
+  #     - WEBUI_PORT=8080
+  #     - TORRENTING_PORT=6881
+  #   volumes:
+  #     - '${OPLISTDX_DATA}/qbittorrent:/config'
+  #     - '${OPLISTDX_DOWNLOADS}/qbittorrent:/downloads'
+  #     - '${OPLISTDX_TEMP}/qBittorrent:/opt/openlist/data/temp/qBittorrent'
+  #   ports:
+  #     - 8080:8080
+  #     - 6881:6881
+  #     - 6881:6881/udp
+  #   restart: unless-stopped
+
+  # # Transmission 下载器 | Transmission Downloader
+  # transmission:
+  #   image: lscr.io/linuxserver/transmission:latest
+  #   container_name: transmission
+  #   environment:
+  #     - PUID=${OPLISTDX_PUID}
+  #     - PGID=${OPLISTDX_PGID}
+  #     - TZ=${OPLISTDX_TZ}
+  #     - TRANSMISSION_WEB_HOME=${OPLISTDX_TRANSMISSION_WEB_HOME} #optional
+  #     - USER=${OPLISTDX_TRANSMISSION_USER} #optional
+  #     - PASS=${OPLISTDX_TRANSMISSION_PASS} #optional
+  #     - WHITELIST=${OPLISTDX_TRANSMISSION_WHITELIST} #optional
+  #     - PEERPORT=${OPLISTDX_TRANSMISSION_PEERPORT} #optional
+  #     - HOST_WHITELIST=${OPLISTDX_TRANSMISSION_HOST_WHITELIST} #optional
+  #   volumes:
+  #     - '${OPLISTDX_DATA}/transmission:/config'
+  #     - '${OPLISTDX_DOWNLOADS}/transmission:/downloads'
+  #     - '${OPLISTDX_TRANSMISSIONWATCH}:/watch'
+  #     - '${OPLISTDX_TEMP}/Transmission:/opt/openlist/data/temp/Transmission'
+  #   ports:
+  #     - 9091:9091
+  #     - 51413:51413
+  #     - 51413:51413/udp
+  #   restart: unless-stopped
+```
+
+::: en
+Create `.env` file.
+:::
+::: zh-CN
+创建 `.env` 文件。
+:::
+
+```bash
+vim .env
+```
+
+```
+# =============================================================================
+# 基础配置 | Basic Configuration
+# =============================================================================
+# 用户和组 ID（确保文件权限正确）| User and group ID (ensure correct file permissions)
+OPLISTDX_PUID=0
+OPLISTDX_PGID=0
+
+# 时区设置 | Timezone setting
+OPLISTDX_TZ=Asia/Shanghai
+
+# =============================================================================
+# 路径配置 | Path Configuration
+# =============================================================================
+# 主数据目录 | Main data directory
+OPLISTDX_DATA=./data
+
+# 临时文件目录 | Temporary files directory
+OPLISTDX_TEMP=./temp
+
+# # 下载目录 | Downloads directory
+# OPLISTDX_DOWNLOADS=./downloads
+
+# # Transmission 监控目录 | Transmission watch directory
+# OPLISTDX_TRANSMISSIONWATCH=./watch
+
+# # =============================================================================
+# # Aria2 配置 | Aria2 Configuration
+# # =============================================================================
+# # Aria2 RPC 密钥 | Aria2 RPC secret token
+# OPLISTDX_ARIA2TOKEN=your_aria2_secret_token
+
+# # =============================================================================
+# # Transmission 配置（可选）| Transmission Configuration (Optional)
+# # =============================================================================
+# # Transmission Web UI 主题目录 | Transmission Web UI theme directory
+# OPLISTDX_TRANSMISSION_WEB_HOME=
+
+# # Transmission Web UI 用户名 | Transmission Web UI username
+# OPLISTDX_TRANSMISSION_USER=admin
+
+# # Transmission Web UI 密码 | Transmission Web UI password
+# OPLISTDX_TRANSMISSION_PASS=password
+
+# # IP 白名单（逗号分隔）| IP whitelist (comma separated)
+# OPLISTDX_TRANSMISSION_WHITELIST=
+
+# # Peer 端口 | Peer port
+# OPLISTDX_TRANSMISSION_PEERPORT=
+
+# # 主机白名单 | Host whitelist
+# OPLISTDX_TRANSMISSION_HOST_WHITELIST=
 ```
 
 ::: en
@@ -86,6 +240,13 @@ Run commands in the same path of `docker-compose.yml` file:
 docker compose pull
 docker compose up -d
 ```
+
+::: en
+To enable support for other downloaders such as Aria2, qBittorrent, or Transmission, please remove the relevant comments in your docker-compose.yml file and adjust the configuration as needed.
+:::
+::: zh-CN
+如需支持 Aria2、qBittorrent、Transmission 等其他下载器，请删除 `docker-compose.yml` 文件中的相关注释并根据需要调整配置。
+:::
 
 ## Env { lang="en" }
 

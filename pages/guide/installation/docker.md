@@ -482,7 +482,7 @@ Create `.env` file.
 创建 `.env` 文件。
 :::
 
-```
+```bash
 # =============================================================================
 # 基础配置 | Basic Configuration
 # =============================================================================
@@ -553,38 +553,42 @@ docker compose up -d
 ### 环境变量 { lang="zh-CN" }
 
 ::: en
-| Name | Default | Desc |
-|:------------|:--------|----------------------------------------------------------------------------------------------------------------------------|
-| `OPLISTDX_PUID` | `0` | User UID |
-| `OPLISTDX_PGID` | `0` | User GID |
-| `OPLISTDX_TZ` | `UTC` | Default is the UTC time zone. If you want to specify a time zone, you can set this variable, for example: `Asia/Shanghai`. |
-| `OPLISTDX_DATA` | `./data` | Main data directory. |
-| `OPLISTDX_TEMP` | `./temp` | Temporary files directory |
-| `OPLISTDX_DOWNLOADS` | `./downloads` | Downloads directory |
-| `OPLISTDX_TRANSMISSIONWATCH` | `./watch` | Transmission watch directory |
-| `OPLISTDX_ARIA2TOKEN` | | Aria2 RPC secret token |
-| `OPLISTDX_TRANSMISSION_WEB_HOME` | | Transmission Web UI theme directory |
-| `OPLISTDX_TRANSMISSION_USER` | | Transmission Web UI username |
-| `OPLISTDX_TRANSMISSION_PASS` | | Transmission Web UI password |
-| `OPLISTDX_TRANSMISSION_WHITELIST` | | IP whitelist (comma separated) |
-| `OPLISTDX_TRANSMISSION_PEERPORT` | | Peer port |
-| `OPLISTDX_TRANSMISSION_HOST_WHITELIST` | | Host whitelist |
+
+| Name                                   | Default       | Desc                                                                                                                       |
+| :------------------------------------- | :------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| `OPLISTDX_PUID`                        | `0`           | User UID                                                                                                                   |
+| `OPLISTDX_PGID`                        | `0`           | User GID                                                                                                                   |
+| `OPLISTDX_TZ`                          | `UTC`         | Default is the UTC time zone. If you want to specify a time zone, you can set this variable, for example: `Asia/Shanghai`. |
+| `OPLISTDX_DATA`                        | `./data`      | Main data directory.                                                                                                       |
+| `OPLISTDX_TEMP`                        | `./temp`      | Temporary files directory                                                                                                  |
+| `OPLISTDX_DOWNLOADS`                   | `./downloads` | Downloads directory                                                                                                        |
+| `OPLISTDX_TRANSMISSIONWATCH`           | `./watch`     | Transmission watch directory                                                                                               |
+| `OPLISTDX_ARIA2TOKEN`                  |               | Aria2 RPC secret token                                                                                                     |
+| `OPLISTDX_TRANSMISSION_WEB_HOME`       |               | Transmission Web UI theme directory                                                                                        |
+| `OPLISTDX_TRANSMISSION_USER`           |               | Transmission Web UI username                                                                                               |
+| `OPLISTDX_TRANSMISSION_PASS`           |               | Transmission Web UI password                                                                                               |
+| `OPLISTDX_TRANSMISSION_WHITELIST`      |               | IP whitelist (comma separated)                                                                                             |
+| `OPLISTDX_TRANSMISSION_PEERPORT`       |               | Peer port                                                                                                                  |
+| `OPLISTDX_TRANSMISSION_HOST_WHITELIST` |               | Host whitelist                                                                                                             |
+
 :::
 ::: zh-CN
-| 名称 | 默认值 | 说明 |
-| :---------- | :----- | -------------------------------------------------------------------------- |
-| `OPLISTDX_PUID` | `0` | 运行身份 UID |
-| `OPLISTDX_PGID` | `0` | 运行身份 GID |
-| `OPLISTDX_TZ` | `UTC` | 默认为 UTC 时区，如果你想指定时区，则可以设置此变量，例如：`Asia/Shanghai` |
-| `OPLISTDX_DATA` | `./data` | 主数据目录 |
-| `OPLISTDX_TEMP` | `./temp` | 临时文件目录 |
-| `OPLISTDX_DOWNLOADS` | `./downloads` | 下载目录 |
-| `OPLISTDX_TRANSMISSIONWATCH` | `./watch` | Transmission 监控目录 |
-| `OPLISTDX_ARIA2TOKEN` | | Aria2 RPC 密钥 |
-| `OPLISTDX_TRANSMISSION_WEB_HOME` | | Transmission Web UI 主题目录 |
-| `OPLISTDX_TRANSMISSION_USER` | | Transmission Web UI 用户名 |
-| `OPLISTDX_TRANSMISSION_PASS` | | Transmission Web UI 密码 |
-| `OPLISTDX_TRANSMISSION_WHITELIST` | | IP 白名单（逗号分隔） |
-| `OPLISTDX_TRANSMISSION_PEERPORT` | | Peer 端口 |
-| `OPLISTDX_TRANSMISSION_HOST_WHITELIST` | | 主机白名单 |
+
+| 名称                                   | 默认值        | 说明                                                                       |
+| :------------------------------------- | :------------ | -------------------------------------------------------------------------- |
+| `OPLISTDX_PUID`                        | `0`           | 运行身份 UID                                                               |
+| `OPLISTDX_PGID`                        | `0`           | 运行身份 GID                                                               |
+| `OPLISTDX_TZ`                          | `UTC`         | 默认为 UTC 时区，如果你想指定时区，则可以设置此变量，例如：`Asia/Shanghai` |
+| `OPLISTDX_DATA`                        | `./data`      | 主数据目录                                                                 |
+| `OPLISTDX_TEMP`                        | `./temp`      | 临时文件目录                                                               |
+| `OPLISTDX_DOWNLOADS`                   | `./downloads` | 下载目录                                                                   |
+| `OPLISTDX_TRANSMISSIONWATCH`           | `./watch`     | Transmission 监控目录                                                      |
+| `OPLISTDX_ARIA2TOKEN`                  |               | Aria2 RPC 密钥                                                             |
+| `OPLISTDX_TRANSMISSION_WEB_HOME`       |               | Transmission Web UI 主题目录                                               |
+| `OPLISTDX_TRANSMISSION_USER`           |               | Transmission Web UI 用户名                                                 |
+| `OPLISTDX_TRANSMISSION_PASS`           |               | Transmission Web UI 密码                                                   |
+| `OPLISTDX_TRANSMISSION_WHITELIST`      |               | IP 白名单（逗号分隔）                                                      |
+| `OPLISTDX_TRANSMISSION_PEERPORT`       |               | Peer 端口                                                                  |
+| `OPLISTDX_TRANSMISSION_HOST_WHITELIST` |               | 主机白名单                                                                 |
+
 :::
